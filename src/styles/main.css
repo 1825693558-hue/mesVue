@@ -1,0 +1,106 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #app {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar-container {
+  width: 220px;
+  height: 100%;
+  background: #001529;
+  flex-shrink: 0;
+  transition: width 0.3s;
+}
+
+.sidebar-container.collapsed {
+  width: 64px;
+}
+
+.main-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.navbar {
+  height: 50px;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+
+.content-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  background: #f0f2f5;
+  padding: 16px;
+}
+
+.page-card {
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  min-height: 100%;
+}
+
+.search-bar {
+  margin-bottom: 16px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.table-toolbar {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pagination-wrapper {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+}
+
+.stat-card .stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a56db;
+  margin: 8px 0;
+}
+
+.stat-card .stat-label {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.chart-container {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+}
