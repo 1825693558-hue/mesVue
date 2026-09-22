@@ -87,7 +87,7 @@
           v-for="(alert, idx) in alerts"
           :key="idx"
           :type="alert.level === 'danger' ? 'danger' : 'warning'"
-          :timestamp="alert.type"
+          :timestamp="alertTypeText(alert.type)"
         >
           {{ alert.message }}
         </el-timeline-item>
@@ -106,6 +106,14 @@ const orderProgress = ref([])
 const alerts = ref([])
 
 let timer = null
+
+const alertTypeMap = {
+  progress_lag: '进度滞后',
+  equipment_down: '设备异常'
+}
+function alertTypeText(type) {
+  return alertTypeMap[type] || type || ''
+}
 
 async function refreshData() {
   try {

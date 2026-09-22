@@ -14,10 +14,12 @@
 
     <el-table :data="list" v-loading="loading" border>
       <el-table-column prop="dispatchNo" label="派工单号" width="180" />
-      <el-table-column prop="orderId" label="订单ID" width="80" />
-      <el-table-column prop="stepId" label="工序ID" width="80" />
-      <el-table-column prop="workCenterId" label="工作中心ID" width="100" />
-      <el-table-column prop="operatorId" label="操作工ID" width="100" />
+      <el-table-column prop="orderNo" label="订单号" width="150" />
+      <el-table-column prop="stepName" label="工序" width="120" />
+      <el-table-column prop="workCenterName" label="工作中心" width="130" />
+      <el-table-column label="操作工" width="100">
+        <template #default="{ row }">{{ row.operatorName || '未指派' }}</template>
+      </el-table-column>
       <el-table-column prop="dispatchQty" label="派工数量" width="80" />
       <el-table-column prop="completedQty" label="完成数量" width="80" />
       <el-table-column label="状态" width="80">
@@ -47,8 +49,15 @@
 
     <el-dialog v-model="assignVisible" title="指派操作工" width="400px">
       <el-form label-width="80px">
-        <el-form-item label="操作工ID">
-          <el-input v-model="assignOperatorId" placeholder="输入用户ID" />
+        <el-form-item label="操作工">
+          <el-select v-model="assignOperatorId" placeholder="选择操作工" style="width: 100%">
+            <el-option
+              v-for="u in operators"
+              :key="u.id"
+              :label="u.realName + '（' + u.username + '）'"
+              :value="u.id"
+            />
+          </el-select>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -63,6 +72,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { getDispatchList, startDispatch, pauseDispatch, completeDispatch, assignOperator } from '../../api/order'
+import { getUserList } from '../../api/system'
 
 const loading = ref(false)
 const list = ref([])
@@ -71,6 +81,7 @@ const query = reactive({ page: 1, size: 20, orderId: null, workCenterId: null, s
 const assignVisible = ref(false)
 const assignRow = ref(null)
 const assignOperatorId = ref(null)
+const operators = ref([])
 
 async function loadData() {
   loading.value = true
@@ -81,6 +92,11 @@ async function loadData() {
   } finally {
     loading.value = false
   }
+}
+
+async function loadOperators() {
+  const res = await getUserList({ page: 1, size: 100 })
+  operators.value = res.data.list || []
 }
 
 function statusText(status) {
@@ -122,5 +138,8 @@ async function handleAssign() {
   loadData()
 }
 
-onMounted(loadData)
+onMounted(() => {
+  loadData()
+  loadOperators()
+})
 </script>

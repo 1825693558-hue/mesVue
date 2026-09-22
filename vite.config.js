@@ -4,8 +4,10 @@ import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
+  const isProd = mode === 'production'
 
   return {
+    base: isProd ? '/mes/' : '/',
     plugins: [vue()],
     resolve: {
       alias: {

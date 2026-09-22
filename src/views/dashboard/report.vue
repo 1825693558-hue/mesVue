@@ -52,16 +52,17 @@ let oeeChart = null
 async function loadProduction() {
   const date = dateRange.value && dateRange.value.length === 2 ? dateRange.value[1] : ''
   const res = await getProductionDaily(date)
-  const data = res.data || []
+  // 后端返回 { date, totalGoodQty, totalScrapQty, reportCount, details:[{dispatchId,goodQty,scrapQty}] }
+  const data = (res.data && res.data.details) || []
   productionChart.setOption({
     tooltip: { trigger: 'axis' },
-    legend: { data: ['计划数量', '完成数量'] },
+    legend: { data: ['合格数量', '不良数量'] },
     grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
-    xAxis: { type: 'category', data: data.map(d => d.date) },
+    xAxis: { type: 'category', data: data.map(d => '派工#' + d.dispatchId) },
     yAxis: { type: 'value' },
     series: [
-      { name: '计划数量', type: 'bar', data: data.map(d => d.plannedQty) },
-      { name: '完成数量', type: 'bar', data: data.map(d => d.completedQty) }
+      { name: '合格数量', type: 'bar', data: data.map(d => d.goodQty) },
+      { name: '不良数量', type: 'bar', data: data.map(d => d.scrapQty) }
     ]
   })
 }
@@ -70,7 +71,9 @@ async function loadQuality() {
   const startDate = dateRange.value && dateRange.value.length === 2 ? dateRange.value[0] : ''
   const endDate = dateRange.value && dateRange.value.length === 2 ? dateRange.value[1] : ''
   const res = await getQualityAnalysis(startDate, endDate)
-  const data = res.data || []
+  // 后端返回 { totalGoodQty, totalScrapQty, scrapReasonDistribution:{reason:qty} }
+  const dist = (res.data && res.data.scrapReasonDistribution) || {}
+  const data = Object.keys(dist).map(reason => ({ name: reason, value: dist[reason] }))
   qualityChart.setOption({
     tooltip: { trigger: 'item', formatter: '{a} <br/>{b}: {c} ({d}%)' },
     legend: { orient: 'vertical', left: 'left' },
@@ -79,7 +82,7 @@ async function loadQuality() {
         name: '不良原因',
         type: 'pie',
         radius: '60%',
-        data: data.map(d => ({ name: d.reason, value: d.qty })),
+        data: data,
         emphasis: { itemStyle: { shadowBlur: 10, shadowOffsetX: 0, shadowColor: 'rgba(0,0,0,0.5)' } }
       }
     ]
@@ -88,7 +91,8 @@ async function loadQuality() {
 
 async function loadOee() {
   const res = await getOeeAnalysis()
-  const data = res.data || []
+  // 后端返回 { workCenters:[{workCenterName,availability,performance,quality,oee}] }
+  const data = (res.data && res.data.workCenters) || []
   const workCenters = data.map(d => d.workCenterName)
   oeeChart.setOption({
     tooltip: { trigger: 'axis' },
