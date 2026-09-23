@@ -71,7 +71,7 @@
         :data="permTreeData"
         show-checkbox
         node-key="id"
-        :props="{ label: 'permName', children: 'children' }"
+        :props="{ label: 'permissionName', children: 'children' }"
         default-expand-all
       />
       <template #footer>
