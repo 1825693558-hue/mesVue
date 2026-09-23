@@ -135,12 +135,19 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.sidebar-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 .sidebar-header {
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #002140;
+  flex-shrink: 0;
 }
 .sidebar-title {
   color: #fff;
@@ -155,6 +162,9 @@ onMounted(async () => {
 }
 .sidebar-container .el-menu {
   border-right: none;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .navbar-left {
   display: flex;
