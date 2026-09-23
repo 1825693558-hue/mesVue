@@ -4,7 +4,7 @@ import { getToken, removeToken } from './auth'
 import router from '../router'
 
 const request = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/mes/api',
   timeout: 15000
 })
 
