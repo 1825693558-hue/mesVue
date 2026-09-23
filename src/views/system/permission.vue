@@ -13,12 +13,12 @@
       default-expand-all
       :tree-props="{ children: 'children' }"
     >
-      <el-table-column prop="permName" label="权限名称" width="200" />
-      <el-table-column prop="permCode" label="权限编码" width="180" />
+      <el-table-column prop="permissionName" label="权限名称" width="200" />
+      <el-table-column prop="permissionCode" label="权限编码" width="180" />
       <el-table-column label="类型" width="80">
         <template #default="{ row }">
-          <el-tag :type="row.permType === 1 ? 'primary' : 'success'" size="small">
-            {{ row.permType === 1 ? '菜单' : '按钮' }}
+          <el-tag :type="row.type === 1 ? 'primary' : 'success'" size="small">
+            {{ row.type === 1 ? '菜单' : '按钮' }}
           </el-tag>
         </template>
       </el-table-column>
@@ -42,14 +42,14 @@
         <el-form-item label="上级权限">
           <el-input :model-value="form.parentId ? getParentName(form.parentId) : '顶级权限'" disabled />
         </el-form-item>
-        <el-form-item label="权限名称" prop="permName">
-          <el-input v-model="form.permName" />
+        <el-form-item label="权限名称" prop="permissionName">
+          <el-input v-model="form.permissionName" />
         </el-form-item>
-        <el-form-item label="权限编码" prop="permCode">
-          <el-input v-model="form.permCode" placeholder="如 system:user:add" />
+        <el-form-item label="权限编码" prop="permissionCode">
+          <el-input v-model="form.permissionCode" placeholder="如 system:user:add" />
         </el-form-item>
         <el-form-item label="类型">
-          <el-radio-group v-model="form.permType">
+          <el-radio-group v-model="form.type">
             <el-radio :value="1">菜单</el-radio>
             <el-radio :value="2">按钮</el-radio>
           </el-radio-group>
@@ -81,11 +81,11 @@ const dialogVisible = ref(false)
 const isEdit = ref(false)
 const formRef = ref()
 const form = reactive({
-  id: null, parentId: null, permName: '', permCode: '', permType: 1, path: '', sort: 0
+  id: null, parentId: null, permissionName: '', permissionCode: '', type: 1, path: '', sort: 0
 })
 const rules = {
-  permName: [{ required: true, message: '请输入权限名称', trigger: 'blur' }],
-  permCode: [{ required: true, message: '请输入权限编码', trigger: 'blur' }]
+  permissionName: [{ required: true, message: '请输入权限名称', trigger: 'blur' }],
+  permissionCode: [{ required: true, message: '请输入权限编码', trigger: 'blur' }]
 }
 
 async function loadData() {
@@ -103,7 +103,7 @@ function getParentName(parentId) {
   function traverse(nodes) {
     for (const node of nodes) {
       if (node.id === parentId) {
-        name = node.permName
+        name = node.permissionName
         return
       }
       if (node.children) traverse(node.children)
@@ -118,7 +118,7 @@ function handleAdd(parent) {
   Object.assign(form, {
     id: null,
     parentId: parent ? parent.id : null,
-    permName: '', permCode: '', permType: 1, path: '', sort: 0
+    permissionName: '', permissionCode: '', type: 1, path: '', sort: 0
   })
   dialogVisible.value = true
 }
