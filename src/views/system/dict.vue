@@ -43,7 +43,7 @@
       />
     </div>
 
-    <el-dialog v-model="dialogVisible" :title="isEdit ? '编辑字典' : '新增字典'" width="500px">
+    <el-dialog :close-on-click-modal="false" v-model="dialogVisible" :title="isEdit ? '编辑字典' : '新增字典'" width="500px">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="90px">
         <el-form-item label="字典类型" prop="dictType">
           <el-input v-model="form.dictType" placeholder="如 material_type" />

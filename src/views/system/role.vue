@@ -43,7 +43,7 @@
     </div>
 
     <!-- Role dialog -->
-    <el-dialog v-model="dialogVisible" :title="isEdit ? '编辑角色' : '新增角色'" width="500px">
+    <el-dialog :close-on-click-modal="false" v-model="dialogVisible" :title="isEdit ? '编辑角色' : '新增角色'" width="500px">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="编码" prop="roleCode">
           <el-input v-model="form.roleCode" placeholder="如 ROLE_ADMIN" />
@@ -65,7 +65,7 @@
     </el-dialog>
 
     <!-- Permission dialog -->
-    <el-dialog v-model="permVisible" :title="`分配权限 - ${currentRole?.roleName || ''}`" width="500px">
+    <el-dialog :close-on-click-modal="false" v-model="permVisible" :title="`分配权限 - ${currentRole?.roleName || ''}`" width="500px">
       <el-tree
         ref="permTreeRef"
         :data="permTreeData"

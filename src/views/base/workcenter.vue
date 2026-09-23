@@ -54,7 +54,7 @@
       />
     </div>
 
-    <el-dialog v-model="dialogVisible" :title="isEdit ? '编辑工作中心' : '新增工作中心'" width="500px">
+    <el-dialog :close-on-click-modal="false" v-model="dialogVisible" :title="isEdit ? '编辑工作中心' : '新增工作中心'" width="500px">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="90px">
         <el-form-item label="编码" prop="centerCode">
           <el-input v-model="form.centerCode" placeholder="如 WC-001" />

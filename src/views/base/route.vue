@@ -83,7 +83,7 @@
     </div>
 
     <!-- Route dialog -->
-    <el-dialog v-model="routeDialogVisible" :title="isEditRoute ? '编辑工艺路线' : '新增工艺路线'" width="500px">
+    <el-dialog :close-on-click-modal="false" v-model="routeDialogVisible" :title="isEditRoute ? '编辑工艺路线' : '新增工艺路线'" width="500px">
       <el-form ref="routeFormRef" :model="routeForm" :rules="routeRules" label-width="80px">
         <el-form-item label="编码" prop="routeCode">
           <el-input v-model="routeForm.routeCode" placeholder="如 RT-001" />
@@ -105,7 +105,7 @@
     </el-dialog>
 
     <!-- Step dialog -->
-    <el-dialog v-model="stepDialogVisible" :title="isEditStep ? '编辑步骤' : '新增步骤'" width="500px">
+    <el-dialog :close-on-click-modal="false" v-model="stepDialogVisible" :title="isEditStep ? '编辑步骤' : '新增步骤'" width="500px">
       <el-form ref="stepFormRef" :model="stepForm" :rules="stepRules" label-width="100px">
         <el-form-item label="步骤号" prop="stepNo">
           <el-input-number v-model="stepForm.stepNo" :min="1" style="width: 100%" />

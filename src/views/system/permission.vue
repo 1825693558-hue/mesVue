@@ -37,7 +37,7 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog v-model="dialogVisible" :title="isEdit ? '编辑权限' : '新增权限'" width="500px">
+    <el-dialog :close-on-click-modal="false" v-model="dialogVisible" :title="isEdit ? '编辑权限' : '新增权限'" width="500px">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="90px">
         <el-form-item label="上级权限">
           <el-input :model-value="form.parentId ? getParentName(form.parentId) : '顶级权限'" disabled />

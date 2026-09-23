@@ -44,7 +44,7 @@
     </div>
 
     <!-- User dialog -->
-    <el-dialog v-model="dialogVisible" :title="isEdit ? '编辑用户' : '新增用户'" width="500px">
+    <el-dialog :close-on-click-modal="false" v-model="dialogVisible" :title="isEdit ? '编辑用户' : '新增用户'" width="500px">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="form.username" :disabled="isEdit" placeholder="登录用户名" />
@@ -72,7 +72,7 @@
     </el-dialog>
 
     <!-- Reset password dialog -->
-    <el-dialog v-model="resetVisible" title="重置密码" width="400px">
+    <el-dialog :close-on-click-modal="false" v-model="resetVisible" title="重置密码" width="400px">
       <el-form label-width="80px">
         <el-form-item label="用户">
           <span>{{ resetRow?.username }}</span>

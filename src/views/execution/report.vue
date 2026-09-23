@@ -29,7 +29,7 @@
       />
     </div>
 
-    <el-dialog v-model="dialogVisible" title="提交报工" width="500px">
+    <el-dialog :close-on-click-modal="false" v-model="dialogVisible" title="提交报工" width="500px">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="派工单" prop="dispatchId">
           <el-select v-model="form.dispatchId" placeholder="选择进行中的派工单" style="width: 100%" filterable>

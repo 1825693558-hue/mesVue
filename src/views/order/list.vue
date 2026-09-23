@@ -56,7 +56,7 @@
       />
     </div>
 
-    <el-dialog v-model="dialogVisible" title="创建生产订单" width="500px">
+    <el-dialog :close-on-click-modal="false" v-model="dialogVisible" title="创建生产订单" width="500px">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="产品" prop="productId">
           <el-select v-model="form.productId" placeholder="选择产品" style="width: 100%" @change="onProductChange">

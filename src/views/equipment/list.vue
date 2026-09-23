@@ -72,7 +72,7 @@
       />
     </div>
 
-    <el-dialog v-model="dialogVisible" :title="isEdit ? '编辑设备' : '新增设备'" width="500px">
+    <el-dialog :close-on-click-modal="false" v-model="dialogVisible" :title="isEdit ? '编辑设备' : '新增设备'" width="500px">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="设备编码" prop="equipmentCode">
           <el-input v-model="form.equipmentCode" placeholder="如 EQ-001" />

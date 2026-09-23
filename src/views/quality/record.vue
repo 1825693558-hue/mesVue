@@ -47,7 +47,7 @@
       />
     </div>
 
-    <el-dialog v-model="dialogVisible" title="新增检验记录" width="500px">
+    <el-dialog :close-on-click-modal="false" v-model="dialogVisible" title="新增检验记录" width="500px">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="派工单ID" prop="dispatchId">
           <el-input-number v-model="form.dispatchId" :min="1" style="width: 100%" />

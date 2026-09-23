@@ -56,7 +56,7 @@
     </div>
 
     <!-- Material dialog -->
-    <el-dialog v-model="dialogVisible" :title="isEdit ? '编辑物料' : '新增物料'" width="500px">
+    <el-dialog :close-on-click-modal="false" v-model="dialogVisible" :title="isEdit ? '编辑物料' : '新增物料'" width="500px">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="编码" prop="materialCode">
           <el-input v-model="form.materialCode" placeholder="如 M2024-001" />
@@ -88,7 +88,7 @@
     </el-dialog>
 
     <!-- BOM dialog -->
-    <el-dialog v-model="bomVisible" :title="`BOM管理 - ${currentMaterial?.materialName || ''}`" width="700px">
+    <el-dialog :close-on-click-modal="false" v-model="bomVisible" :title="`BOM管理 - ${currentMaterial?.materialName || ''}`" width="700px">
       <div class="search-bar">
         <el-select v-model="bomForm.childMaterialId" placeholder="选择子物料" filterable style="width: 240px">
           <el-option v-for="m in allMaterials" :key="m.id" :label="`${m.materialCode} - ${m.materialName}`" :value="m.id" />

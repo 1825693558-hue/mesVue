@@ -47,7 +47,7 @@
       />
     </div>
 
-    <el-dialog v-model="assignVisible" title="指派操作工" width="400px">
+    <el-dialog :close-on-click-modal="false" v-model="assignVisible" title="指派操作工" width="400px">
       <el-form label-width="80px">
         <el-form-item label="操作工">
           <el-select v-model="assignOperatorId" placeholder="选择操作工" style="width: 100%">
