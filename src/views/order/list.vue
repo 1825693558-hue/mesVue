@@ -59,7 +59,7 @@
     <el-dialog :close-on-click-modal="false" v-model="dialogVisible" title="创建生产订单" width="500px">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="产品" prop="productId">
-          <el-select v-model="form.productId" placeholder="选择产品" style="width: 100%" @change="onProductChange">
+          <el-select v-model="form.productId" placeholder="选择产品" style="width: 100%">
             <el-option v-for="p in products" :key="p.id" :label="p.productName" :value="p.id" />
           </el-select>
         </el-form-item>
@@ -150,9 +150,18 @@ async function handleClose(id) {
   loadData()
 }
 
+function formatDateTime(d) {
+  const date = new Date(d)
+  const pad = n => String(n).padStart(2, '0')
+  return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`
+}
+
 async function handleCreate() {
   await formRef.value.validate()
-  await createOrder(form)
+  const data = { ...form }
+  if (data.plannedStartTime) data.plannedStartTime = formatDateTime(data.plannedStartTime)
+  if (data.plannedEndTime) data.plannedEndTime = formatDateTime(data.plannedEndTime)
+  await createOrder(data)
   ElMessage.success('创建成功')
   dialogVisible.value = false
   loadData()
