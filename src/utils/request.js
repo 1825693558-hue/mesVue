@@ -25,8 +25,7 @@ request.interceptors.response.use(
     if (res.code !== 200) {
       ElMessage.error(res.message || '请求失败')
       if (res.code === 401) {
-        removeToken()
-        router.push('/login')
+        handleUnauthorized()
       }
       return Promise.reject(new Error(res.message || '请求失败'))
     }
@@ -35,9 +34,7 @@ request.interceptors.response.use(
   error => {
     if (error.response) {
       if (error.response.status === 401) {
-        removeToken()
-        router.push('/login')
-        ElMessage.error('登录已过期，请重新登录')
+        handleUnauthorized()
       } else if (error.response.status === 403) {
         ElMessage.error('权限不足')
       } else {
@@ -49,5 +46,18 @@ request.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+
+// 防止多个请求同时401时重复弹窗和跳转
+let isHandlingUnauthorized = false
+function handleUnauthorized() {
+  if (isHandlingUnauthorized) return
+  isHandlingUnauthorized = true
+  removeToken()
+  ElMessage.error('登录已过期，请重新登录')
+  router.push('/login').finally(() => {
+    // 跳转完成后重置标志位，下次过期仍可正常触发
+    setTimeout(() => { isHandlingUnauthorized = false }, 500)
+  })
+}
 
 export default request
