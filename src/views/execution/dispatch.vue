@@ -1,7 +1,9 @@
 <template>
   <div class="page-card">
     <div class="search-bar">
-      <el-input v-model="query.orderId" placeholder="订单ID" clearable style="width: 120px" />
+      <el-select v-model="query.orderId" placeholder="选择订单" clearable filterable style="width: 220px">
+        <el-option v-for="o in orders" :key="o.id" :label="o.orderNo" :value="o.id" />
+      </el-select>
       <el-input v-model="query.workCenterId" placeholder="工作中心ID" clearable style="width: 120px" />
       <el-select v-model="query.status" placeholder="状态" clearable style="width: 120px">
         <el-option label="待开工" :value="0" />
@@ -71,12 +73,13 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
-import { getDispatchList, startDispatch, pauseDispatch, completeDispatch, assignOperator } from '../../api/order'
+import { getDispatchList, startDispatch, pauseDispatch, completeDispatch, assignOperator, getOrderList } from '../../api/order'
 import { getUserList } from '../../api/system'
 
 const loading = ref(false)
 const list = ref([])
 const total = ref(0)
+const orders = ref([])
 const query = reactive({ page: 1, size: 20, orderId: null, workCenterId: null, status: null })
 const assignVisible = ref(false)
 const assignRow = ref(null)
@@ -92,6 +95,11 @@ async function loadData() {
   } finally {
     loading.value = false
   }
+}
+
+async function loadOrders() {
+  const res = await getOrderList({ page: 1, size: 100 })
+  orders.value = res.data.list || []
 }
 
 async function loadOperators() {
@@ -140,6 +148,7 @@ async function handleAssign() {
 
 onMounted(() => {
   loadData()
+  loadOrders()
   loadOperators()
 })
 </script>
