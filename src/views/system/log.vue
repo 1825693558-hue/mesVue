@@ -10,7 +10,6 @@
       <el-table-column prop="username" label="用户名" width="120" />
       <el-table-column prop="module" label="模块" width="120" />
       <el-table-column prop="operation" label="操作" show-overflow-tooltip />
-      <el-table-column prop="method" label="方法" show-overflow-tooltip />
       <el-table-column prop="ip" label="IP" width="140" />
       <el-table-column prop="createTime" label="操作时间" width="170" />
     </el-table>
