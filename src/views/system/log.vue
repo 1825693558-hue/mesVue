@@ -7,10 +7,11 @@
     </div>
 
     <el-table :data="list" v-loading="loading" border>
-      <el-table-column prop="username" label="用户名" width="120" />
-      <el-table-column prop="module" label="模块" width="120" />
-      <el-table-column prop="operation" label="操作" show-overflow-tooltip />
-      <el-table-column prop="ip" label="IP" width="140" />
+      <el-table-column prop="username" label="用户名" width="100" />
+      <el-table-column prop="module" label="模块" width="100" />
+      <el-table-column prop="operation" label="操作" width="120" />
+      <el-table-column prop="params" label="操作详情" show-overflow-tooltip />
+      <el-table-column prop="ip" label="IP" width="130" />
       <el-table-column prop="createTime" label="操作时间" width="170" />
     </el-table>
 
